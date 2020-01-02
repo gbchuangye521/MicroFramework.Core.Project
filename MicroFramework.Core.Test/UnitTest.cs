@@ -9,8 +9,10 @@ namespace MicroFramework.Core.Test
         public void TestMethod1()
         {
         }
-        public static void Test() {
-         var number= 0;
+        public static void Test()
+        {
+            var number = 0;
+            number = 1;
         }
     }
 }
