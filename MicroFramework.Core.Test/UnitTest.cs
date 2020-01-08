@@ -7,7 +7,7 @@ namespace MicroFramework.Core.Test
     public class UnitTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod()
         {
         }
         public static void Test()
