@@ -15,6 +15,7 @@ namespace MicroFramework.Core.Test
             var number = 0; 
             number = 1; 
             Console.WriteLine(number);
+
         }
     }
 }
