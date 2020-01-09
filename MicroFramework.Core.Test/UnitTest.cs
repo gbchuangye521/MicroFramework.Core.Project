@@ -13,7 +13,7 @@ namespace MicroFramework.Core.Test
         public static void Test()
         {
             var number = 0; 
-            number = 1;
+            number = 1; 
             Console.WriteLine(number);
         }
     }
