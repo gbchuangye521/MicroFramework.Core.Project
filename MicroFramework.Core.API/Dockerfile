@@ -1,24 +1,16 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
-
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-nanoserver-sac2016 AS base
-WORKDIR /app
-EXPOSE 80
-
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-nanoserver-sac2016 AS build
-WORKDIR /src
-COPY ["MicroFramework.Core.API/MicroFramework.Core.API.csproj", "MicroFramework.Core.API/"]
-RUN dotnet restore "MicroFramework.Core.API/MicroFramework.Core.API.csproj"
-COPY . .
-WORKDIR "/src/MicroFramework.Core.API"
-RUN dotnet build "MicroFramework.Core.API.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "MicroFramework.Core.API.csproj" -c Release -o /app/publish
-
-FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY *.csproj ./
+RUN dotnet restore
+COPY . ./
+
+WORKDIR /app
+RUN dotnet publish -c Release -o out
+
+FROM microsoft/dotnet:3.1-aspnetcore-runtime AS runtime
+
+WORKDIR /app
+
+COPY --from=build /app/out ./
+
 ENTRYPOINT ["dotnet", "MicroFramework.Core.API.dll"]
